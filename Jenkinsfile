@@ -58,11 +58,12 @@ pipeline {
                     ansiColor('xterm') {
                       echo "\u001B[32m  ####### STARTED TRIVY IMAGE SCANNING! #########\u001B[0m"
                     }
-                    sh "trivy image -f json -o trivy-image-report.json ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}"
+                     sh "trivy image -f json -o trivy-image-report.json ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}"
                      archiveArtifacts artifacts: 'trivy-report.json', fingerprint: true
-                                        ansiColor('xterm') {
-                      echo "\u001B[32m  ####### COMPLETED TRIVY IMAGE SCANNING SUCCESSFULLY #########\u001B[0m"
+                    ansiColor('xterm') {
+                      echo "\u001B[32m  ####### COMPLETED TRIVY IMAGE SCANNING SUCCESSFULLY COMPLETED #########\u001B[0m"
                     }
+                }
                 }
           }       
         stage ('Pushing image inot ecr') {
