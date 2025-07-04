@@ -1,0 +1,42 @@
+pipeline {
+  agent any 
+
+  environment {
+        AWS_ECR_REPO_URL = "965220894814.dkr.ecr.eu-north-1.amazonaws.com"
+        AWS_ECR_REPO_NAME =  "hello-world"
+  }
+  parameters {
+        string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'Enter environment name')
+        string(name: 'IMAGE_TAGE', defaultValue: '', description: 'Enter image tag value')
+        booleanParam(name: 'DEPLOY', defaultValue: false, description: 'DEPLOY?')
+        choice(name: 'ENVIRONENTS_CREDENTIALS_ID', choices: ['dev-credentials-id', 'sit-credentisl-id', 'prod-credentisl-id'], description: 'Select AWS region')
+    }
+  stages {
+    stage ('Vefiry credentials') {
+     steps {
+       script {
+         println("Verifying the paramters which we selelected")
+         println("Environment name is: ${params.ENVIRONMENT}")
+         println("Enabled deploy: ${params.DEPLOY}")
+         println("Enabled deploy: ${params.ENVIRONENTS_CREDENTIALS_ID}")
+       }
+     }
+    }
+    stage ('Deploying application'){
+      when {
+          expression { return params.DEPLOY == true }
+        }
+      steps {
+        script {
+          sh "docker rm -rf  test-application"
+          sh "docker run -itd --name test-application -p 8091:8080 ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${params.IMAGE_TAGE}"
+        }
+      }
+    }
+  }
+}
+    
+           
+
+         
+         
