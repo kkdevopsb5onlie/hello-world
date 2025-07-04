@@ -1,14 +1,14 @@
 pipeline {
     agent any 
     environemnt {
-        
+        AWS_ECR_REPO_URL = "DDDD"
     }
     tools {
         maven 'maven'
     }
-    parameters {
+    /*parameters {
         
-    }
+    }*/
     stages {
         stage ('git checkout'){
             steps {
