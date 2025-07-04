@@ -63,7 +63,8 @@ pipeline {
                                         ansiColor('xterm') {
                       echo "\u001B[32m  ####### COMPLETED TRIVY IMAGE SCANNING SUCCESSFULLY #########\u001B[0m"
                     }
-                    
+                }
+          }       
         stage ('Pushing image inot ecr') {
             steps {
                 script {
