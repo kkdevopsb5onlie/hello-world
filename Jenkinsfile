@@ -36,6 +36,7 @@ pipeline {
         stage ('Building image') {
             steps {
                 script {
+                    sh "ls -la"
                     sh "docker build -t ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER} ."
                 }
             }
