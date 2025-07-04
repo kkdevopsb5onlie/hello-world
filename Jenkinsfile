@@ -52,7 +52,7 @@ pipeline {
                 }
             }
         }
-        /*stage ('trivy image scanning'){
+        stage ('trivy image scanning'){
             steps {
                 script {
                 try {
@@ -69,7 +69,7 @@ pipeline {
                 }
              }
             }
-        } */      
+        }    
         stage ('Pushing image inot ecr') {
             steps {
                 script {
