@@ -58,6 +58,7 @@ pipeline {
         stage ('Deploying application') {
             steps {
                 script {
+                    sh "docker rm -f test-application"
                     sh "docker run -itd --name test-application -p 8091:8080 ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}"
                     println("${GIT_URL}")
                 }
