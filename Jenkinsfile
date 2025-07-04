@@ -14,7 +14,7 @@ pipeline {
         stage ('git checkout'){
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/kkdevopsb5onlie/hello-world.git'
+                    git branch: 'feature/nexus', url: 'https://github.com/kkdevopsb5onlie/hello-world.git'
                 }
             }
         }
