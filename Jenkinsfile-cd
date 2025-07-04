@@ -28,7 +28,7 @@ pipeline {
         }
       steps {
         script {
-          sh "docker rm -rf  test-application"
+          sh "docker rm -f  test-application"
           sh "docker run -itd --name test-application -p 8091:8080 ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${params.IMAGE_TAGE}"
         }
       }
