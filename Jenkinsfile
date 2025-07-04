@@ -86,7 +86,7 @@ pipeline {
                 }
             }
         }
-        stage ('Deploying application') {
+        /*stage ('Deploying application') {
             steps {
                 script {
                     ansiColor('xterm') {
@@ -97,7 +97,7 @@ pipeline {
                     println("${GIT_URL}")
                 }
             }
-        }
+        }*/
     }
 }
 
