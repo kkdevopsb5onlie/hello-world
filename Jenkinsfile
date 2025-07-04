@@ -1,6 +1,6 @@
 pipeline {
     agent any 
-    environemnt {
+    environment {
         AWS_ECR_REPO_URL = "DDDD"
     }
     tools {
