@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     ansiColor('xterm') {
-                    echo "\u001B[32m repository cloning successfully!\u001B[0m"
+                    echo "\u001B[32m STARTED CLONING REPOSITORY !\u001B[0m"
                     }
                     git branch: 'feature/nexus', url: 'https://github.com/kkdevopsb5onlie/hello-world.git'
                 }
@@ -24,6 +24,9 @@ pipeline {
         stage ("unit test"){
             steps {
                 script {
+                    ansiColor('xterm') {
+                      echo "\u001B[32m  ####### STARTED UNIT TEST! #########\u001B[0m"
+                    }
                     sh "mvn test"
                 }
             }
@@ -32,6 +35,9 @@ pipeline {
         stage ('build') {
             steps {
                 script {
+                   ansiColor('xterm') {
+                      echo "\u001B[32m  ####### STARTED BUILDING APPLICAION #########\u001B[0m"
+                    }
                     sh "mvn package"
                 }
             }
@@ -39,15 +45,31 @@ pipeline {
         stage ('Building image') {
             steps {
                 script {
-                    sh "ls -la"
+                  ansiColor('xterm') {
+                      echo "\u001B[32m  ####### STARTED BUINDING DOCKER IMAGE! #########\u001B[0m"
+                    }
                     sh "docker build -t ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER} ."
                 }
             }
         }
+        stage ('trivy image scanning'){
+            steps {
+                script {
+                    ansiColor('xterm') {
+                      echo "\u001B[32m  ####### STARTED TRIVY IMAGE SCANNING! #########\u001B[0m"
+                    }
+                    sh "trivy image -f json -o trivy-image-report.json ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}"
+                     archiveArtifacts artifacts: 'trivy-report.json', fingerprint: true
+                                        ansiColor('xterm') {
+                      echo "\u001B[32m  ####### COMPLETED TRIVY IMAGE SCANNING SUCCESSFULLY #########\u001B[0m"
+                    }
+                    
         stage ('Pushing image inot ecr') {
             steps {
                 script {
-                    println(" ############# logging into aws ecr ################# ")
+                    ansiColor('xterm') {
+                      echo "\u001B[32m  ####### LOGGING INTO AWS ECR REGISTRY ! #########\u001B[0m"
+                    }
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                         //export AWS_DEFAULT_REGION=eu-north-1
                         sh """
@@ -61,6 +83,9 @@ pipeline {
         stage ('Deploying application') {
             steps {
                 script {
+                    ansiColor('xterm') {
+                      echo "\u001B[32m  ####### STARTED DEPLOYING APPLICATION ! #########\u001B[0m"
+                    }
                     sh "docker rm -f test-application"
                     sh "docker run -itd --name test-application -p 8091:8080 ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}"
                     println("${GIT_URL}")
