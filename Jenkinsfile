@@ -46,8 +46,8 @@ pipeline {
                 script {
                     println(" ############# logging into aws ecr ################# ")
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        //export AWS_DEFAULT_REGION=eu-north-1
                         sh """
-                        export AWS_DEFAULT_REGION=eu-north-1
                         aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 965220894814.dkr.ecr.eu-north-1.amazonaws.com
                         docker push ${AWS_ECR_REPO_URL}/${AWS_ECR_REPO_NAME}:${BUILD_NUMBER}
                         sh """
