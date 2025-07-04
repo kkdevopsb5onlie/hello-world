@@ -14,6 +14,9 @@ pipeline {
         stage ('git checkout'){
             steps {
                 script {
+                    ansiColor('xterm') {
+                    echo "\u001B[32m repository cloning successfully!\u001B[0m"
+                    }
                     git branch: 'feature/nexus', url: 'https://github.com/kkdevopsb5onlie/hello-world.git'
                 }
             }
