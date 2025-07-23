@@ -3,4 +3,3 @@ libraries {
   maven
   //sonar
 }
-
