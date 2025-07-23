@@ -4,4 +4,3 @@ libraries {
   //sonar
 }
 
-
