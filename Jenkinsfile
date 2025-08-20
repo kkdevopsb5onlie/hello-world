@@ -87,7 +87,7 @@ pipeline {
                     println("$IMAGE_NAME}")
                     sh "sed -i 's|image: .*|image: ${IMAGE_NAME}|' k8s/2-deployment.yml"
                     sh "cat k8s/2-deployment.yml"
-                    withCredentials([[$class: 'AmanonWebServicesCredentilasBinding', credentialsId: 'eks-credentils', acccessKeyVariable:  'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentilasBinding', credentialsId: 'eks-credentils', acccessKeyVariable:  'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                       sh "aws eks update-kubeconfig --name staging-demo --region us-east-2"
                       sh "kubectl apply -f k8s"
                     }
