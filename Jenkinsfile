@@ -45,6 +45,15 @@ pipeline {
                 }
             }
         }
+        stage('Building Image') {
+            steps {
+                script {
+                    def TAG = sh(script: "date +%Y%m%d-%H%M%S", returnStdout: true).trim()
+                    env.IMAGE_TAG = TAG
+                    sh "docker build -t dharimigariarjun/maven-project:${env.IMAGE_TAG } ."
+                }
+            }
+        }
     }
     post {
         always {
