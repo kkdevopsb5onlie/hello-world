@@ -6,25 +6,25 @@ pipeline {
         maven 'maven'
     }
     stages {
-        stage('test') {
+        stage('Test') {
             steps {
                 script {
                     sh "mvn test"
                 }
             }
         }
-        stage ('sonarqube analysis') {
+        stage ('Sonarqube Analysis') {
             steps {
                 script {
                     def SONAR_SCANNER_HOME = tool 'sonar-scanner'
                     sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner --version"
-                    withSonarQubeEnv(('sonar') {
+                    withSonarQubeEnv('sonar') {
                         sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=hello-world"
                     }
                 }
             }
         }
-        stage ('build') {
+        stage ('Build') {
             steps {
                 script {
                     sh "mvn package"
