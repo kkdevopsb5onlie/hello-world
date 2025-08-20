@@ -4,7 +4,6 @@ pipeline {
     }
     tools {
         maven 'maven'
-        sonarScanner 'sonar-scanner'
     }
     stages {
         stage('test') {
@@ -17,7 +16,8 @@ pipeline {
         stage ('sonarqube analysis') {
             steps {
                 script {
-                    sh "sonar-scanner --version"
+                    def SONAR_SCANNER_HOME = tool 'sonar-scanner'
+                    sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner --version"
                 }
             }
         }
