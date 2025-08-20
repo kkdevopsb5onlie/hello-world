@@ -29,6 +29,14 @@ pipeline {
                 }
             }
         }
+        stage ('Trivy scan') {
+            steps {
+                script {
+                    sh " trivy fs --format table --output trivy-fs-report.txt ."
+                    archiveArtifacts artifacts: 'trivy-fs-report.txt', fingerprint: true
+                }
+            }
+        }
         stage ('Build') {
             steps {
                 script {
@@ -50,7 +58,15 @@ pipeline {
                 script {
                     def TAG = sh(script: "date +%Y%m%d-%H%M%S", returnStdout: true).trim()
                     env.IMAGE_TAG = TAG
-                    sh "docker build -t dharimigariarjun/maven-project:${env.IMAGE_TAG } ."
+                    sh "docker build -t dharimigariarjun/maven-project:${env.IMAGE_TAG} ."
+                }
+            }
+        }
+        stage ('Trivy Image scan') {
+            steps {
+                script {
+                    sh "trivy image --format table --output trivy-image-report.txt dharimigariarjun/maven-project:${env.IMAGE_TAG}"
+                    archiveArtifacts artifacts: 'trivy-image-report.txt', fingerprint: true
                 }
             }
         }
