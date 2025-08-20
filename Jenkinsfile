@@ -46,6 +46,13 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            echo "Cleaning workspace..."
+            cleanWs()   // Jenkins Workspace Cleanup plugin
+        }
+    }
+}
 }
 
 
