@@ -4,12 +4,20 @@ pipeline {
     }
     tools {
         maven 'maven'
+        sonarScanner 'sonar-scanner'
     }
     stages {
         stage('test') {
             steps {
                 script {
                     sh "mvn test"
+                }
+            }
+        }
+        stage ('sonarqube analysis') {
+            steps {
+                script {
+                    sh "sonar-scanner --version"
                 }
             }
         }
