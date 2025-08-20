@@ -32,8 +32,8 @@ pipeline {
         stage ('Trivy scan') {
             steps {
                 script {
-                    sh " trivy fs --format table --output trivy-fs-report.txt ."
-                    archiveArtifacts artifacts: 'trivy-fs-report.txt', fingerprint: true
+                    sh " trivy fs --format json --output trivy-fs-report.json."
+                    archiveArtifacts artifacts: 'trivy-fs-report.json', fingerprint: true
                 }
             }
         }
@@ -65,8 +65,8 @@ pipeline {
         stage ('Trivy Image scan') {
             steps {
                 script {
-                    sh "trivy image --format table dharimigariarjun/maven-project:${env.IMAGE_TAG} | tee trivy-image-report.txt"
-                    archiveArtifacts artifacts: 'trivy-image-report.txt', fingerprint: true
+                    sh "trivy image --format json dharimigariarjun/maven-project:${env.IMAGE_TAG} | tee trivy-image-report.json"
+                    archiveArtifacts artifacts: 'trivy-image-report.json', fingerprint: true
                 }
             }
         }
