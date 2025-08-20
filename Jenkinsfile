@@ -65,7 +65,7 @@ pipeline {
         stage ('Trivy Image scan') {
             steps {
                 script {
-                    sh "trivy image --format table --output trivy-image-report.txt dharimigariarjun/maven-project:${env.IMAGE_TAG}"
+                    sh "trivy image --format table dharimigariarjun/maven-project:${env.IMAGE_TAG} | tee trivy-image-report.txt"
                     archiveArtifacts artifacts: 'trivy-image-report.txt', fingerprint: true
                 }
             }
