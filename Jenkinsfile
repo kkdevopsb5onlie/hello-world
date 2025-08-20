@@ -80,6 +80,16 @@ pipeline {
                 }
             }
         }
+        stage ('deploying into eks') {
+            steps {
+                script {
+                    def IMAGE_NAME = "dharimigariarjun/maven-project:${env.IMAGE_TAG}"
+                    println("$IMAGE_NAME}")
+                    sh "sed -i 's|image: .*|image: ${IMAGE_NAME}|' k8s/2-deployment.yml"
+                    sh "cat k8s/2-deployment.yml"
+                }
+            }
+        }
     }
     post {
         always {
