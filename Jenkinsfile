@@ -34,6 +34,16 @@ pipeline {
                 }
             }
         }
+        stage ('Publing artifacts into nexus') {
+            steps {
+                script {
+                     withCredentials([file(credentialsId: 'maven-settings-file', variable: 'MAVEN_SETTINGS')]) {
+                      sh "mvn clean install --settings $MAVEN_SETTINGS"
+                    }
+                }
+            }
+        }
     }
 }
+
 
