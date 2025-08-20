@@ -5,7 +5,7 @@ FROM tomcat:9.0-jdk17-temurin
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy your WAR file into Tomcat's webapps directory
-COPY target/hello-world.war /usr/local/tomcat/webapps/ROOT.war
+COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expose Tomcat port
 EXPOSE 8080
