@@ -40,7 +40,9 @@ pipeline {
         stage ('Build') {
             steps {
                 script {
-                    sh "mvn package"
+                    withCredentials([file(credentialsId: 'settings-xml-file', variable: 'MAVEN_SETTINGS')]) {
+                      sh "mvn package -s $MAVEN_SETTINGS"
+                    }
                 }
             }
         }
