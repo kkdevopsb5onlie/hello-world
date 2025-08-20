@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'jenkins-agent'
     }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
     tools {
         maven 'maven'
     }
