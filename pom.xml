@@ -37,6 +37,16 @@
   </dependencies>
 
   <build>
+        <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <url>http://18.221.37.184:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <url>http://18.221.37.184:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <finalName>hello-world-war</finalName>
 
     <plugins>
