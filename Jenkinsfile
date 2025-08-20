@@ -12,7 +12,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    sh "mvn test"
+                   withCredentials([file(credentialsId: 'settings-xml-file', variable: 'MAVEN_SETTINGS')]) {
+                      sh "mvn test -s $MAVEN_SETTINGS"
+                    }
                 }
             }
         }
@@ -37,8 +39,8 @@ pipeline {
         stage ('Publing artifacts into nexus') {
             steps {
                 script {
-                     withCredentials([file(credentialsId: 'maven-settings-file', variable: 'MAVEN_SETTINGS')]) {
-                      sh "mvn clean install --settings $MAVEN_SETTINGS"
+                     withCredentials([file(credentialsId: 'settings-xml-file', variable: 'MAVEN_SETTINGS')]) {
+                      sh "mvn deploy -s $MAVEN_SETTINGS"
                     }
                 }
             }
