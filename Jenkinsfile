@@ -32,7 +32,7 @@ pipeline {
         stage ('Trivy scan') {
             steps {
                 script {
-                    sh " trivy fs --format json --output trivy-fs-report.json."
+                    sh " trivy fs --format json --output trivy-fs-report.json ."
                     archiveArtifacts artifacts: 'trivy-fs-report.json', fingerprint: true
                 }
             }
