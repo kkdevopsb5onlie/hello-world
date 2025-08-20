@@ -1,12 +1,16 @@
 pipeline {
-    agent any
-     triggers {
-        pollSCM('* * * * *')  // Runs every 15 minutes
+    agent {
+        label 'jenkins-agent'
+    }
+    tools {
+        maven 'maven'
     }
     stages {
-        stage('Hello') {
+        stage('test') {
             steps {
-                echo 'Hello World'
+                script {
+                    sh "mvn test"
+                }
             }
         }
     }
