@@ -18,6 +18,9 @@ pipeline {
                 script {
                     def SONAR_SCANNER_HOME = tool 'sonar-scanner'
                     sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner --version"
+                    withSonarQubeEnv(('sonar') {
+                        sh "${SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectKey=hello-world"
+                    }
                 }
             }
         }
