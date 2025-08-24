@@ -65,5 +65,16 @@ pipeline {
                 }
             }
         }
+        stage ('Pushing Image into Docker resitory') {
+            steps {
+                script {
+                    pushing_image(
+                        imageName : 'dharimigariarjun/maven-project',
+                        credentialsId : 'docker-hub-credentials'
+                        )
+                }
+            }
+        }
+                    
     }
 }
