@@ -43,6 +43,16 @@ pipeline {
                 }
             }
         }
-                    
+        stage ('building image') {
+            steps {
+                script {
+                    building_image(
+                        imageName : 'dharimigariarjun/maven-project',
+                        dockerfile : 'Dockerfile',
+                        buildContext : '.'
+                    }
+                }
+           }
+                        
     }
 }
