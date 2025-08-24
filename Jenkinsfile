@@ -1,12 +1,13 @@
+@Library('shared_libraries@main') _
+
 pipeline {
     agent any
-     triggers {
-        pollSCM('* * * * *')  // Runs every 15 minutes
-    }
     stages {
-        stage('Hello') {
+        stage('test') {
             steps {
-                echo 'Hello World'
+               script {
+                   maven_test('setting-xml-file-creds')
+               }
             }
         }
     }
