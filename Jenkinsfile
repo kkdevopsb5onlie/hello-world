@@ -50,6 +50,7 @@ pipeline {
                         imageName : 'dharimigariarjun/maven-project',
                         dockerfile : 'Dockerfile',
                         buildContext : '.'
+                        )
                     }
                 }
            }
