@@ -54,6 +54,16 @@ pipeline {
                     }
                 }
            }
-                        
+        stage ('Trivy scan image') {
+            steps {
+                script {
+                    trivy_scan_image(
+                        imageName : 'dharimigariarjun/maven-project',
+                        format : 'json',
+                        outputFile : 'my-trivy-image-scan-reports.json'
+                    )
+                }
+            }
+        }
     }
 }
