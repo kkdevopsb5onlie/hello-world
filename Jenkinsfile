@@ -35,6 +35,14 @@ pipeline {
                 }
             }
         }
+        stage ('build') {
+            steps {
+                script {
+                    maven_build('setting-xml-file-creds')
+
+                }
+            }
+        }
                     
     }
 }
