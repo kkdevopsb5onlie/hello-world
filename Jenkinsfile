@@ -47,7 +47,6 @@ pipeline {
             steps {
                 script {
                     building_image(
-                        imageName : 'dharimigariarjun/maven-project',
                         dockerfile : 'Dockerfile',
                         buildContext : '.'
                         )
