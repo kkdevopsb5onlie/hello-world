@@ -13,5 +13,17 @@ pipeline {
                }
             }
         }
+        stage ('Trivy file scan') {
+            steps {
+                script {
+                    trivy_scan_with_source_code( 
+                        outputFile : 'trivy-file-scan-reports.json',
+                        format : 'json',
+                        scanPath : '.'
+                    )
+                }
+            }
+        }
+                    
     }
 }
