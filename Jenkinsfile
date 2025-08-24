@@ -24,6 +24,17 @@ pipeline {
                 }
             }
         }
+        stage ('sonar analysis') {
+            steps {
+                script {
+                    sonar_analysis(
+                        toolName : 'sonarqube-scanner',
+                        sonarEnv : 'sonar',
+                        projectKey : 'hello word'
+                    )
+                }
+            }
+        }
                     
     }
 }
