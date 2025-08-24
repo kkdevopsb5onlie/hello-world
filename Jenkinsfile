@@ -30,7 +30,7 @@ pipeline {
                     sonar_analysis(
                         toolName : 'sonarqube-scanner',
                         sonarEnv : 'sonar',
-                        projectKey : 'hello word'
+                        projectKey : 'hello-word'
                     )
                 }
             }
