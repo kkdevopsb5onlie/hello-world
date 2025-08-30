@@ -82,6 +82,17 @@ pipeline {
                 }
             }
         }
-                    
+        stage ('deploy') {
+            steps {
+                script {
+                    deploy_docker_container(
+                        inboudPort_number : '9090',
+                        outboundPort_number : '8080',
+                        container_name : 'java-application',
+                        image_name : 'dharimigariarjun/maven-project'
+                        )
+                }
+            }
+        }                 
     }
 }
