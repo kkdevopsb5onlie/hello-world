@@ -35,7 +35,16 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
-
+          <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <url>http://54.82.201.35:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <url>http://54.82.201.35:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
   <build>
     <finalName>hello-world-war</finalName>
 
