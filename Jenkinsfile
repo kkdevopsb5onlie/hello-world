@@ -43,6 +43,13 @@ pipeline {
                 }
             }
         }
+        stage ('Pushing artifacts into nexus') {
+            steps {
+                script {
+                    maven_publish_artifacts('setting-xml-file-creds')
+                }
+            }
+        }
         stage ('building image') {
             steps {
                 script {
